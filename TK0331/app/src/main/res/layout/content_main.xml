@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FacilityActivity"
+    tools:showIn="@layout/activity_facility">
+
+   <include
+       android:id="@+id/title"
+       layout="@layout/layout_title"/>
+
+   <com.tkkj.tkeyes.view.PullToRefreshFrameLayout
+       android:id="@+id/pulllayout"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_below="@id/title"
+       custom:has_divider="true"
+       custom:has_footer="false"
+       custom:has_header="true"
+       custom:has_shadow="false" />
+</RelativeLayout>

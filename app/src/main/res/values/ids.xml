@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="imgShow" type="id">imgShow</item>
+    <item name="device_address" type="id">device_address</item>
+    <item name="device_name" type="id">device_name</item>
+</resources>

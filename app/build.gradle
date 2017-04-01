@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+apply plugin: 'org.greenrobot.greendao'
+
+
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.tkkj.tkeyes"
+        minSdkVersion 18
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+
+
+}
+greendao {
+    schemaVersion 1
+    daoPackage 'com.tkkj.tkeyes.DataBase'
+    targetGenDir 'src/main/java'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+
+}
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:design:25.3.0'
+    //对话框；
+    compile project(path: ':SweetLibrary')
+    // 注解组件
+    compile 'com.jakewharton:butterknife:8.1.0'
+    apt 'com.jakewharton:butterknife-compiler:8.1.0'
+    //图片加载
+    //compile 'com.facebook.fresco:fresco:0.12.0'
+    //SQLCipher是使用256位AES加密的SQLite的自定义构建。
+    //compile 'net.zetetic:android-database-sqlcipher:3.5.6@aar'
+    //列表组件
+    compile 'com.liaoinstan.springview:library:1.2.4'
+    //网络组件
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'cz.msebera.android:httpclient:4.3.6'
+    //沉浸效果
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    //数据处理
+    compile 'com.google.code.gson:gson:2.6.2'
+    //Rxjava
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.okhttp3:okhttp:latest.release'
+    compile 'com.squareup.okhttp3:logging-interceptor:latest.release'
+    //本地数据库、sqlcipher加密库
+    compile 'org.greenrobot:greendao:3.1.1'
+  //  compile 'net.zetetic:android-database-sqlcipher:3.5.4'
+    //    服务器的post、get请求
+    compile 'com.squareup.okhttp:okhttp:2.7.5'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.instabug.library:instabug-with-okhttp-interceptor:4.0.6'
+    compile 'com.squareup.okhttp3:okhttp-apache:3.6.0'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+   // compile 'com.commit451:PhotoView:1.2.4'
+    compile 'com.jakewharton:disklrucache:2.0.2'
+
+    compile 'com.github.zcweng:switch-button:0.0.3@aar'
+    compile 'com.android.support:support-annotations:25.3.0'
+    //蓝牙支持库
+    compile 'com.inuker.bluetooth:library:1.3.9'
+}

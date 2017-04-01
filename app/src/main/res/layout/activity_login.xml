@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_login"
+    android:weightSum="1">
+    <!-- padding 内边距   layout_margin 外边距
+          android:layout_alignParentTop 布局的位置是否处于顶部 -->
+
+    <RelativeLayout
+        android:id="@+id/login_div"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dip"
+        android:layout_margin="15dip"
+        android:background="@drawable/background_login_div"
+        android:layout_weight="0.14">
+        <!-- 账号 -->
+        <TextView
+            android:id="@+id/login_user_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:text="@string/account"
+            />
+
+        <EditText
+            android:id="@+id/username_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="42dip"
+            android:maxLength="11"
+            android:layout_below="@id/login_user_input"
+            android:drawableLeft="@mipmap/user"
+            android:background="@drawable/input_box"
+            android:hint="@string/your_account"
+            android:inputType="text"
+            android:singleLine="true" />
+
+        <!-- 密码 text -->
+        <TextView
+            android:id="@+id/login_password_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username_edit"
+            android:layout_marginTop="3dp"
+            android:text="@string/password"
+            />
+        <EditText
+            android:id="@+id/password_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="42dip"
+            android:background="@drawable/input_box"
+            android:layout_below="@id/login_password_input"
+            android:drawableLeft="@mipmap/password"
+            android:maxLength="16"
+            android:password="true"
+            android:singleLine="true"
+            android:hint="@string/your_password"
+            android:inputType="textVisiblePassword" />
+
+        <!-- 记住 用户名和密码 -->
+        <!--style="@style/MyCheckBox"-->
+
+        <!--用户注册按钮-->
+
+        <CheckBox
+            android:id="@+id/remenber_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/password_edit"
+            android:text="@string/rememberPass" />
+        <!-- 登录button -->
+        <Button
+            android:id="@+id/signin_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/button1"
+            android:layout_marginRight="21dp"
+            android:layout_marginEnd="21dp"
+            android:layout_alignBaseline="@+id/register"
+            android:layout_alignBottom="@+id/register"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:text="注册"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register"
+            android:layout_below="@+id/remenber_button"
+            android:layout_toRightOf="@+id/login_user_input"
+            android:layout_toEndOf="@+id/login_user_input"
+            tools:ignore="HardcodedText" />
+
+    </RelativeLayout>
+
+    <Button
+        android:text="SQLite数据库测试"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/db_Test" />
+
+    <Button
+        android:text="Bluetooth测试"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bluetooth"
+        android:layout_weight="0.14" />
+
+
+</LinearLayout>

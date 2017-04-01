@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_login"
+    android:orientation="vertical"
+    tools:context="com.tkkj.tkeyes.RegisterActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:maxLength="12"
+                android:textColorHint="#0f0" />
+
+            <EditText
+                android:id="@+id/password_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:maxLength="12"
+                android:minLines="6"
+                android:password="true"
+                android:textColorHint="#0f0" />
+
+            <EditText
+                android:id="@+id/confirm_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:maxLength="12"
+                android:minLines="6"
+                android:textColorHint="#0f0" />
+
+            <EditText
+                android:id="@+id/age_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Age"
+                android:inputType="number"
+                android:maxLength="3"
+                android:textColorHint="#0f0" />
+
+            <EditText
+                android:id="@+id/degree_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Degree"
+                android:inputType="number"
+                android:maxLength="4"
+                android:textColorHint="#0f0" />
+
+            <EditText
+                android:id="@+id/astigmatism_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Astigmatism"
+                android:inputType="number"
+                android:maxLength="4"
+                android:textColorHint="#0f0" />
+
+            <EditText
+                android:id="@+id/ID_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="ID"
+                android:inputType="number"
+                android:maxLength="11"
+                android:textColorHint="#0f0" />
+
+            <EditText
+                android:id="@+id/phone_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Phone"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:textColorHint="#0f0" />
+
+            <EditText
+                android:id="@+id/checkID_edit"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="验证码"
+                android:inputType="number"
+                android:maxLength="6" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/check_btn"
+                android:layout_width="380dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_weight="0.11"
+                android:text="获取验证码" />
+
+            <Button
+                android:id="@+id/cancel_btn"
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:layout_weight="0.19"
+                android:text="取消" />
+
+            <Button
+                android:id="@+id/register_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.16"
+                android:text="确定" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

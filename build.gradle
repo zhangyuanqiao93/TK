@@ -1,0 +1,27 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.0.0'
+        //gradle 辅助
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        //greendao本地数据库
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.1.1'
+
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
