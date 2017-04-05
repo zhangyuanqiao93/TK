@@ -88,7 +88,9 @@ public class FacilityActivity extends BasicActivity {
     }
 
 
-    //    权限申请
+    /**
+     *  权限申请
+     */
     private void requestPermission() {
         context = FacilityActivity.this;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -214,6 +216,7 @@ public class FacilityActivity extends BasicActivity {
                 // 设置蓝牙可见性，最多100秒
                 enableBtIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 100);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                DialogUtil.getInstance().hideWait();
 
             }
 

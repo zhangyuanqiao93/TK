@@ -19,11 +19,11 @@ public class CacheManager {
 
     //数据保存
     public static void setData(String url, JSONObject response){
-//        if (hasCache(url)) {
-//            updateData(url, response);
-//        } else {
-//            insert(url, response);
-//        }
+        if (hasCache(url)) {
+            updateData(url, response);
+        } else {
+            insert(url, response);
+        }
     }
 
     /**
@@ -40,6 +40,8 @@ public class CacheManager {
 //        model.setUserId(DataEncryptUtil.getUserId());
 //        model.setJsonData(String.valueOf(response));
 //        modelDao.insert(model);
+
+//        UserDao userDao = DaoManager.getInstance();
     }
 
     private static void updateData(String url, JSONObject response) {

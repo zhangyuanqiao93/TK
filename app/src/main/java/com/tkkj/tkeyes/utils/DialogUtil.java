@@ -4,16 +4,13 @@ package com.tkkj.tkeyes.utils;
  * Created by TKKJ on 2017/3/25.
  */
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.widget.Toast;
 
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
-
 
 public class DialogUtil {
     SweetAlertDialog dialog = null;
@@ -55,13 +52,14 @@ public class DialogUtil {
     public boolean waitDialog(Context ctx, String title) {
         dialog = new SweetAlertDialog(ctx, SweetAlertDialog.PROGRESS_TYPE);
         dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        //dialog.setCustomImage(R.mipmap.loading);
+//        dialog.setCustomImage(R.mipmap.loading);
         if (title.isEmpty() || title == null) {
             dialog.setTitleText("加载中");
         }else{
             dialog.setTitleText(title);
         }
         dialog.setCancelable(true);
+//        dialog.hide();
         dialog.show();
         return true;
     }
@@ -146,16 +144,16 @@ public class DialogUtil {
 
     }
 
-  /*  *//**
+  /**
      * 同时显示标题、内容、图片
-     *//*
+     */
     public void alert(Context ctx, String strTitle, String strContent, int icon) {
         if (TextUtils.isEmpty(strTitle)) {
             strTitle = "提示";
         }
         new SweetAlertDialog(ctx, icon).setTitleText(strTitle)
                 .setContentText(strContent).show();
-    }*/
+    }
 
     /**
      * 错误提示框

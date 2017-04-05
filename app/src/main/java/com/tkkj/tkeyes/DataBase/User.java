@@ -40,7 +40,6 @@ public class User {
     /***
      *
      *  greenDAO自动生成,hash = XX;X不可变
-     *别他妈按着键盘  你的平板
      */
 
     @Id

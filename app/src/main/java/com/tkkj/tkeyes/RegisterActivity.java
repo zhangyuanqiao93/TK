@@ -29,11 +29,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText name, password, confirm_password,
             age, degree, astigmatism, phone, check_ID, ID;
     private Button check, confirm, cancel;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +37,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
         setTitle("请注册个人信息");
         InitView();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     /**
@@ -198,9 +190,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     password.setError("密码不能为空!");
                     password.requestFocus();
                     return;
-                } else if (password.equals(confirm_password)) {
+                } else if (!password.equals(confirm_password)) {
 //                  密码校验成功与否
-                    Toast.makeText(RegisterActivity.this, "密码正确", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "用户名或密码不正确，请重新输入", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 return;
@@ -232,40 +224,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 return;
             }
     }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("Register Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
     @Override
     public void onStart() {
         super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
     }
 }

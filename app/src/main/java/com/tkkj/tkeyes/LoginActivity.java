@@ -33,6 +33,7 @@ import java.util.Date;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
 
+    private static final String TAG = "Login Activity" ;
     private EditText text1;
     private EditText text2;
     private CheckBox box1;
@@ -45,11 +46,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     URLDemo urlDemo;
     Button db_Test;
     Button bluetooth;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +54,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         setTitle("用户登录");
         initview();
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void initview() {
@@ -91,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 rememberPassWord();
                 break;
             case R.id.signin_button:
-                startActivity(new Intent(this,FacilityActivity.class));
+                startActivity(new Intent(this,MainActivity.class));
                /* initData();
                     //		获取用户名名和获取密码
                 String account = text1.getText().toString().trim();
@@ -114,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });*/
                 break;
             case R.id.db_Test:
-                Toast.makeText(LoginActivity.this,"进入SQLite测试Activity",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this,"进入SQLite测试Activity",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this,DBActivity.class));
                 break;
             case R.id.bluetooth:
@@ -197,6 +192,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 editor.commit();
             }
             Toast.makeText(LoginActivity.this, "记住密码" + text1 + text2, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "rememberPassWord: " );
         }
     }
 
@@ -249,21 +245,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onStart() {
         super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
     }
 //    注意其中括号中的url就是你请求数据的url
 

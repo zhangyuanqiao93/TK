@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.tkkj.tkeyes.DBActivity;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -17,14 +16,18 @@ import java.util.List;
 
 public class DaoManager {
     private static DaoManager mInstance;
-    private DaoMaster.DevOpenHelper openHelper;
+    private static DaoMaster.DevOpenHelper openHelper;
     private static final String DB_NAME = "tk.sqlite";
 
     private volatile static DaoManager daoManager;
     private static DaoMaster.DevOpenHelper helper;
     private static DaoMaster daoMaster;
     private static DaoSession daoSession;
-    private Context context;
+    private static Context context;
+
+    public DaoManager(Context context) {
+        return;
+    }
 
     public void initContext(Context context){
         this.context = context;
@@ -46,7 +49,7 @@ public class DaoManager {
         if (mInstance == null) {
             synchronized (DaoManager.class) {
                 if (mInstance == null) {
-//                    mInstance = new DaoManager(context);
+                    mInstance = new DaoManager(context);
                 }
             }
         }
@@ -56,7 +59,7 @@ public class DaoManager {
     /**
      * 获取可读数据库
      */
-    private SQLiteDatabase getReadableDatabase() {
+    public static SQLiteDatabase getReadableDatabase() {
         if (openHelper == null) {
             openHelper = new DaoMaster.DevOpenHelper(context, DB_NAME, null);
         }

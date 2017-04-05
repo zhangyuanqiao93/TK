@@ -3,6 +3,7 @@ package com.tkkj.tkeyes.utils;
 import android.content.Context;
 
 import com.tkkj.tkeyes.DataBase.DaoManager;
+import com.tkkj.tkeyes.DataBase.DaoMaster;
 import com.tkkj.tkeyes.DataBase.DaoSession;
 import com.tkkj.tkeyes.DataBase.User;
 import com.tkkj.tkeyes.DataBase.UserDao;
@@ -10,6 +11,8 @@ import com.tkkj.tkeyes.DataBase.UserDao;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
+
+import retrofit2.http.PUT;
 
 /**
  * Created by TKKJ on 2017/3/30.
@@ -20,22 +23,28 @@ public class CommonUtils {
     private UserDao dao;
     private DaoSession daoSession;
     public CommonUtils(Context context) {
-//        daoManager = DaoManager.getInstance();
+        daoManager = DaoManager.getInstance(context);
         daoManager.initContext(context);
-//        dao = daoManager.getDaoSession().getUserDao();
-//        daoSession = daoManager.getDaoSession();
+        DaoMaster daoMaster = new DaoMaster(DaoManager.getReadableDatabase());
+        DaoSession daoSession = daoMaster.newSession();
+        dao = daoSession.getUserDao();
     }
-    public void insertStudent(User user){
+
+    /**
+     * 增加用户
+     * */
+    public void insertUser(User user){
         dao.insert(user);
     }
     public void insertMultiStudent(final List<User> uList){
-//        daoManager.getDaoSession().runInTx(new Runnable() {            @Override
-//        public void run() {
-//            for (User stu:uList) {
-//                dao.insertOrReplace(stu);
+//        daoManager.getDaoSession().runInTx(new Runnable() {
+//            @Override
+//            public void run() {
+//                for (User stu:uList) {
+//                    dao.insertOrReplace(stu);
+//                }
 //            }
-//        }
-//        });
+//            });
     }
     public void deleteStudent(User user){
         dao.delete(user);
@@ -68,7 +77,4 @@ public class CommonUtils {
         uList = builder.whereOr(UserDao.Properties.Age.ge(22),
                 UserDao.Properties.Name.like("张三")).list();
     }
-//    public void onUpgrade(){
-//        daoManager.setUpgrade();
-//    }
 }
