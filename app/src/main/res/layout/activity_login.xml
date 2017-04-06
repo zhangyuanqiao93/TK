@@ -105,13 +105,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/db_Test" />
 
-    <Button
-        android:text="Bluetooth测试"
-        android:textAllCaps="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bluetooth"
-        android:layout_weight="0.14" />
-
 
 </LinearLayout>

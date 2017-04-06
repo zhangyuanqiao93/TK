@@ -13,6 +13,8 @@ import android.support.v4.content.ContextCompat;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.inuker.bluetooth.library.Constants;
+import com.inuker.bluetooth.library.receiver.listener.BluetoothBondListener;
 import com.inuker.bluetooth.library.search.SearchRequest;
 import com.inuker.bluetooth.library.search.SearchResult;
 import com.inuker.bluetooth.library.search.response.SearchResponse;
@@ -33,6 +35,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.bluetooth.BluetoothDevice.BOND_BONDED;
+import static android.bluetooth.BluetoothDevice.BOND_BONDING;
 
 /**
  * Created by TKKJ on 2017/3/25
@@ -161,7 +166,7 @@ public class FacilityActivity extends BasicActivity {
     private final SearchResponse mSearchResponse = new SearchResponse() {
         @Override
         public void onSearchStarted() {
-            BluetoothLog.w("MainActivity.onSearchStarted");
+            BluetoothLog.d("MainActivity.onSearchStarted");
             mListView.onRefreshComplete(true);
             mRefreshLayout.showState(AppConstants.LIST);
             mDevices.clear();
@@ -240,9 +245,23 @@ public class FacilityActivity extends BasicActivity {
                     mHandler.sendEmptyMessage(BLUTOOTH_ENABLE);
                 }
                 break;
-
         }
-
     }
 
+    /**
+     * 监听设备配对状态变化
+     * */
+    private final BluetoothBondListener mBluetoothBondListener = new BluetoothBondListener() {
+        @Override
+        public void onBondStateChanged(String mac, int bondState) {
+//             bondState = Constants.BOND_NONE, BOND_BONDING, BOND_BONDED;
+
+        }
+    };
+
+    /**
+     * Beacon解析:
+     * 可以在广播中携带设备的自定义数据，用于设备识别，数据广播，事件通知等，
+     * 这样手机端无需连接设备就可以获取设备推送的数据。
+     * */
 }

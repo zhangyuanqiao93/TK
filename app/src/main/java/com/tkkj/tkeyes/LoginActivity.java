@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,12 +27,14 @@ import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
+import com.tkkj.tkeyes.base.NetService;
+import com.tkkj.tkeyes.base.OkHttpUtils;
 import com.tkkj.tkeyes.base.SynchronousGet;
 import com.tkkj.tkeyes.base.URLDemo;
 
 import java.util.Date;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
 
     private static final String TAG = "Login Activity" ;
@@ -45,7 +49,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     SynchronousGet synchronousGet;
     URLDemo urlDemo;
     Button db_Test;
-    Button bluetooth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login_btn = (Button) findViewById(R.id.signin_button);
         regidter_btn = (Button) findViewById(R.id.register);
         db_Test = (Button) findViewById(R.id.db_Test);
-        bluetooth = (Button) findViewById(R.id.bluetooth);
 
         text1.setOnClickListener(this);
         text2.setOnClickListener(this);
@@ -73,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login_btn.setOnClickListener(this);
         regidter_btn.setOnClickListener(this);
         db_Test.setOnClickListener(this);
-        bluetooth.setOnClickListener(this);
+//        rememberPass.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -82,40 +84,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.register:
                 register();
                 break;
-            case R.id.remenber_button:
-                rememberPassWord();
-                break;
             case R.id.signin_button:
                 startActivity(new Intent(this,MainActivity.class));
-               /* initData();
+//                initData();
                     //		获取用户名名和获取密码
                 String account = text1.getText().toString().trim();
                 String password = text2.getText().toString().trim();
-                NetService.loginByPhoneOkhttp(this, account, password, new OkHttpUtils.OnCompleteListener<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        //这是返回来的结果result
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        LoginActivity.this.finish();
-                        Toast.makeText(LoginActivity.this,"发送成功！",Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError(String error) {
-                        //这是网络请求失败或者异常的结果;无返回结果可以
-                        Toast.makeText(LoginActivity.this,"登录失败，重新登录！",Toast.LENGTH_SHORT).show();
-                    }
-                });*/
+//                NetService.loginByPhoneOkhttp(this, account, password, new OkHttpUtils.OnCompleteListener<String>() {
+//                    @Override
+//                    public void onSuccess(String result) {
+//                        //这是返回来的结果result
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        LoginActivity.this.finish();
+//                        Toast.makeText(LoginActivity.this,"发送成功！",Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onError(String error) {
+//                        //这是网络请求失败或者异常的结果;无返回结果可以
+//                        Toast.makeText(LoginActivity.this,"登录失败，重新登录！",Toast.LENGTH_SHORT).show();
+//                    }
+//                });
                 break;
             case R.id.db_Test:
-//                Toast.makeText(LoginActivity.this,"进入SQLite测试Activity",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this,DBActivity.class));
                 break;
-            case R.id.bluetooth:
-              /*  setTitle("Bluetooth测试");
-                Toast.makeText(LoginActivity.this,"Bluetooth测试Activity",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this,BluetoothGattActivity.class));*/
             default:
                 break;
         }
@@ -143,6 +137,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Toast.makeText(LoginActivity.this, "用户名: "+ account+"\n"+"密码： "+password, Toast.LENGTH_SHORT).show();
     }
 
+
+    public void login(View view){
+        int id = view.getId();
+        switch (id){
+            case R.id.signin_button:
+                //获取用户名和密码
+                //获取用户名名和获取密码
+                String account = text1.getText().toString();
+                String password = text2.getText().toString();
+                if (TextUtils.isEmpty(account.trim())||TextUtils.isEmpty(password.trim())){
+                    Toast.makeText(this,"用户名或者密码不能为空",Toast.LENGTH_LONG).show();
+                    text1.requestFocus();
+                }else {
+                    //如果用户名和密码已经输入，则进入以下方法
+
+                }
+                break;
+        }
+    }
     private void showDialog(String msg) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(msg)
@@ -192,7 +205,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 editor.commit();
             }
             Toast.makeText(LoginActivity.this, "记住密码" + text1 + text2, Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "rememberPassWord: " );
+            Log.d(TAG, "rememberPassWord" );
         }
     }
 
@@ -205,7 +218,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     //    与服务器连接通道
-
     public static void getHttpData(String Url, JsonHttpResponseHandler responseHandler) {
         Date curDate = new Date(System.currentTimeMillis());
 //        client.get(getContext(), Url, responseHandler);
@@ -213,34 +225,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         long diff = endDate.getTime() - curDate.getTime();
         Log.e("tag", "网络查询数据耗时：" + diff);
     }
-//
-//    public static void cacelRequest(final Context context) {
-//        client.cancelRequests(context,true);
-//    }
+
 
     OkHttpClient okHttpClient = new OkHttpClient();
-
-
 
 //OkHttpClient对象
     RequestBody requestBody = new FormEncodingBuilder().add("", "").build();
     Request request = new Request.Builder().url("http://192.168.1.101").get().build();
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("Login Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
 
     @Override
     public void onStart() {
@@ -251,10 +242,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onStop() {
         super.onStop();
     }
-//    注意其中括号中的url就是你请求数据的url
 
-//    最后OkHttpClient对象去构造得到一个Call对象，
-// 去异步请求（enqueue），okHttpClient.newCall(request).enqueue(new Callback() {});
-//    okHttpClient.newCall(request).enqueue(new MenuBuilder.Callback() {
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if (b){
+            //选中记住密码
+            //记住之后记住这个状态，登录成功后再保存  因为登录成功之前密码不一定正确
+//             rememberPassWord();
+        }else {
 
+        }
+    }
 }

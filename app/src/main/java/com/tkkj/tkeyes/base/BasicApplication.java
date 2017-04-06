@@ -7,6 +7,8 @@ package com.tkkj.tkeyes.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.tkkj.tkeyes.DataBase.GreenDaoManager;
+
 
 public class BasicApplication extends Application {
 
@@ -15,9 +17,8 @@ public class BasicApplication extends Application {
 
     @Override
     public void onCreate() {
-
-        initData();
         super.onCreate();
+        initData();
     }
     static BasicApplication applicationcontext;
     public BasicApplication(){
@@ -33,7 +34,7 @@ public class BasicApplication extends Application {
     private void initData() {
         _SpActivityManager = AppManager.getInstance();
         mContext = getApplicationContext();
-        //GreenDaoManager.getInstance();
+//        GreenDaoManager.getInstance();
     }
 
 
