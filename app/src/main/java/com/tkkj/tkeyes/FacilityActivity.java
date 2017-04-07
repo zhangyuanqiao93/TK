@@ -13,7 +13,6 @@ import android.support.v4.content.ContextCompat;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.inuker.bluetooth.library.Constants;
 import com.inuker.bluetooth.library.receiver.listener.BluetoothBondListener;
 import com.inuker.bluetooth.library.search.SearchRequest;
 import com.inuker.bluetooth.library.search.SearchResult;
@@ -35,9 +34,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static android.bluetooth.BluetoothDevice.BOND_BONDED;
-import static android.bluetooth.BluetoothDevice.BOND_BONDING;
 
 /**
  * Created by TKKJ on 2017/3/25
@@ -107,9 +103,8 @@ public class FacilityActivity extends BasicActivity {
                     this.REQUEST_LOCATION_PERMISSION);
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                //判断是否跟用户做一个说明
-                DialogUtil.getInstance().toast
-                        (getApplicationContext(), "需要蓝牙权限");
+                //判断是否给用户做一个说明
+//                DialogUtil.getInstance().toast(getApplicationContext(), "需要蓝牙权限");
             }
         }
     }
@@ -174,7 +169,7 @@ public class FacilityActivity extends BasicActivity {
 
         @Override
         public void onDeviceFounded(SearchResult device) {
-//            BluetoothLog.w("MainActivity.onDeviceFounded " + device.device.getAddress());
+            BluetoothLog.d("MainActivity.onDeviceFounded " + device.device.getAddress());
             if (!mDevices.contains(device)) {
                 mDevices.add(device);
                 mAdapter.setDataList(mDevices);
@@ -189,7 +184,7 @@ public class FacilityActivity extends BasicActivity {
 
         @Override
         public void onSearchStopped() {
-            BluetoothLog.w("MainActivity.onSearchStopped");
+            BluetoothLog.d("MainActivity.onSearchStopped");
             mListView.onRefreshComplete(true);
             mRefreshLayout.showState(AppConstants.LIST);
 
@@ -197,7 +192,7 @@ public class FacilityActivity extends BasicActivity {
 
         @Override
         public void onSearchCanceled() {
-            BluetoothLog.w("MainActivity.onSearchCanceled");
+            BluetoothLog.d("MainActivity.onSearchCanceled");
             mListView.onRefreshComplete(true);
             mRefreshLayout.showState(AppConstants.LIST);
 

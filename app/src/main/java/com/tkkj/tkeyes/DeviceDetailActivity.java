@@ -127,7 +127,7 @@ public class DeviceDetailActivity extends Activity {
         ClientManager.getClient().connect(mDevice.getAddress(), options, new BleConnectResponse() {
             @Override
             public void onResponse(int code, BleGattProfile profile) {
-                BluetoothLog.v(String.format("profile:\n%s", profile));
+                BluetoothLog.d(String.format("profile:\n%s", profile));
                 mTvTitle.setText(String.format("%s", mDevice.getAddress()));
                 mPbar.setVisibility(View.GONE);
                 mListView.setVisibility(View.VISIBLE);

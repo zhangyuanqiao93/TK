@@ -36,7 +36,7 @@ import okhttp3.Request;
  * Created by TKKJ on 2017/3/25.
  */
 
-public class MainAdapter extends BaseAdapter implements View.OnTouchListener{
+public class MainAdapter extends BaseAdapter{
     private Context context;
     private String[] list;
 
@@ -96,13 +96,14 @@ public class MainAdapter extends BaseAdapter implements View.OnTouchListener{
                 switch (position){
                     case 0:
                         Log.d(TAG, "onCheckedChanged: 启动设备");
-                        startOrEnd();//这里实现网络请求？Y
+                        startOrEnd();
                         break;
                     case 1:
                         Log.d(TAG, "onCheckedChanged: 干预设备");
                         break;
                     case 2:
                         Log.d(TAG, "onCheckedChanged: 测试设备");
+                        diveceTest();
                         break;
                     case 3:
                         Log.d(TAG, "onCheckedChanged: 连接设备");
@@ -117,13 +118,18 @@ public class MainAdapter extends BaseAdapter implements View.OnTouchListener{
            @Override
            public void onClick(View view) {
                if (position==list.length-1){
-                   callMe("10086");
+                   callMe("10086");//联系我们，Pad不支持，会报错。
                }
            }
        });
         return convertView;
 
     }
+
+    private void diveceTest() {
+        return;
+    }
+
     public void callMe(String phone){
         Intent intent = new Intent(Intent.ACTION_DIAL);
         Uri data = Uri.parse("tel:"+ phone);
@@ -154,12 +160,6 @@ public class MainAdapter extends BaseAdapter implements View.OnTouchListener{
     private boolean BluetoothIsBoot() {
         return true;
     }
-
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        return false;
-    }
-
 
     class ViewHolder {
         @BindView(R.id.img_left_item_mine)

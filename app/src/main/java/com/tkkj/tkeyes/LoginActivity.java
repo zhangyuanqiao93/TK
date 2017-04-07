@@ -108,7 +108,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //                });
                 break;
             case R.id.db_Test:
-                startActivity(new Intent(LoginActivity.this,DBActivity.class));
+                startActivity(new Intent(LoginActivity.this,DeviceScanActivity.class));
+
                 break;
             default:
                 break;

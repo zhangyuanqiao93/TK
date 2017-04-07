@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //必须在setContentView()之后使用
-        //你是不是改过这个方法？
 
         ButterKnife.bind(this);
         setTitle("功能操作");

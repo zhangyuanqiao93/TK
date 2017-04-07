@@ -136,7 +136,7 @@ public class CharacterActivity extends Activity implements View.OnClickListener 
     private final BleConnectStatusListener mConnectStatusListener = new BleConnectStatusListener() {
         @Override
         public void onConnectStatusChanged(String mac, int status) {
-            BluetoothLog.v(String.format("CharacterActivity.onConnectStatusChanged status = %d", status));
+            BluetoothLog.d(String.format("CharacterActivity.onConnectStatusChanged status = %d", status));
 
             if (status == STATUS_DISCONNECTED) {
                 DialogUtil.getInstance().toast(context, "disconnected");

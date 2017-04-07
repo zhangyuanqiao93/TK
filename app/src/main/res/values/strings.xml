@@ -32,6 +32,7 @@
     <string name="devices">设备列表</string>
 
     <string name="connecting">正在连接</string>
+    <string name="ble_not_supported">设备不支持蓝牙</string>
 
 
 </resources>
