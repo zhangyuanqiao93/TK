@@ -10,7 +10,6 @@ import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.inuker.bluetooth.library.utils.BluetoothLog;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -162,7 +161,7 @@ public class WaveView extends View {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        BluetoothLog.e(String.format("onAttachedToWindow"));
+//        BluetoothLog.e(String.format("onAttachedToWindow"));
         setWaveSize(getWidth(), getHeight());
     }
 
@@ -240,7 +239,7 @@ public class WaveView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        BluetoothLog.e(String.format("onSizeChanged w = %d, h = %d", w, h));
+//        BluetoothLog.e(String.format("onSizeChanged w = %d, h = %d", w, h));
         setWaveSize(w, h);
     }
 

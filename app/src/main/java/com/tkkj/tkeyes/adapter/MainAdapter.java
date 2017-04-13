@@ -2,10 +2,8 @@ package com.tkkj.tkeyes.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,45 +11,41 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.loopj.android.http.RequestParams;
 import com.suke.widget.SwitchButton;
-import com.tkkj.tkeyes.FacilityActivity;
-import com.tkkj.tkeyes.MainActivity;
-import com.tkkj.tkeyes.NetService.HttpCallBack;
-import com.tkkj.tkeyes.NetService.NetDao;
 import com.tkkj.tkeyes.R;
-import com.tkkj.tkeyes.bluetoothutil.BluetoothUtil;
+import com.tkkj.tkeyes.SearchActivity;
+import com.tkkj.tkeyes.model.OperationModel;
 import com.tkkj.tkeyes.utils.DialogUtil;
+import com.tkkj.tkeyes.utils.GlobalObject;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
-import okhttp3.Request;
 
 
 /**
  * Created by TKKJ on 2017/3/25.
  */
 
-public class MainAdapter extends BaseAdapter{
+public class MainAdapter extends BaseAdapter {
     private Context context;
-    private String[] list;
+    ArrayList<OperationModel> list;
 
     private static String TAG = "MainAdapter";
 
     private Intent freshIntent = new Intent();
 
-    public MainAdapter(Context context, String[] list) {
+    public MainAdapter(Context context, ArrayList<OperationModel> list) {
         this.context = context;
         this.list = list;
     }
 
     @Override
     public int getCount() {
-        return list == null ? 0 : list.length;
+        return list == null ? 0 : list.size();
     }
 
     @Override
@@ -76,90 +70,87 @@ public class MainAdapter extends BaseAdapter{
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tvNameItemMine.setText(list[position]);
-        if (position==list.length-1){
+        holder.tvNameItemMine.setText(list.get(position).getTitle());
+        if (position == list.size() - 1) {
             holder.toggleAutoPlay.setVisibility(View.GONE);
         }
-        if (!BluetoothUtil.isBluetoothSupported()&&position==list.length-1){
-            holder.toggleAutoPlay.setEnabled(false);
-            holder.linItemMine.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    DialogUtil.getInstance().errmessage(context,"错误","当前设备不支持蓝牙");
-                }
-            });
+//        if (!BluetoothUtil.isBluetoothSupported() && position == list.size() - 1) {
+//            if (list.get(position).isCheck() == 0) {
+//                holder.toggleAutoPlay.setEnabled(false);
+//            } else {
+//                holder.toggleAutoPlay.setEnabled(true);
+//            }
+//            holder.linItemMine.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    DialogUtil.getInstance().errmessage(context, "错误", "当前设备不支持蓝牙");
+//                }
+//            });
 
-        }
+//        }
         holder.toggleAutoPlay.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                switch (position){
+                switch (position) {
                     case 0:
-                        Log.d(TAG, "onCheckedChanged: 启动设备");
+                        Log.e(TAG, "onCheckedChanged: 启动设备");
                         startOrEnd();
                         break;
                     case 1:
-                        Log.d(TAG, "onCheckedChanged: 干预设备");
+                        Log.e(TAG, "onCheckedChanged: 干预设备");
                         break;
                     case 2:
-                        Log.d(TAG, "onCheckedChanged: 测试设备");
-                        diveceTest();
+                        Log.e(TAG, "onCheckedChanged: 测试设备");
+                        if (isChecked) {
+                            sendBrocast();
+                        }
                         break;
                     case 3:
-                        Log.d(TAG, "onCheckedChanged: 连接设备");
-                        context.startActivity(new Intent(context,FacilityActivity.class));
+                        Log.e(TAG, "onCheckedChanged: 连接设备");
+                        context.startActivity(new Intent(context, SearchActivity.class));
                         break;
                     default:
                         break;
                 }
             }
         });
-       holder.linItemMine.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               if (position==list.length-1){
-                   callMe("10086");//联系我们，Pad不支持，会报错。
-               }
-           }
-       });
+        holder.linItemMine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (position == list.size() - 1) {
+                    callMe("10086");//联系我们，Pad不支持，会报错。
+                }
+            }
+        });
         return convertView;
 
+    }
+
+    public void sendBrocast() {
+
+        freshIntent.setAction(GlobalObject.GLOBAL_BROADCAST);
+        freshIntent.putExtra("msg", GlobalObject.TEST_DEVICE);
+        freshIntent.putExtra("data", "测试");
+        context.sendBroadcast(freshIntent);
     }
 
     private void diveceTest() {
         return;
     }
 
-    public void callMe(String phone){
-        Intent intent = new Intent(Intent.ACTION_DIAL);
+    public void callMe(String phone) {
+        /*Intent intent = new Intent(Intent.ACTION_DIAL);
         Uri data = Uri.parse("tel:"+ phone);
         intent.setData(data);
-        context.startActivity(intent);
+        context.startActivity(intent);*/
     }
+
     private void startOrEnd() {
         RequestParams params = new RequestParams();//这里装参数
-        NetDao.dataLoad(params, new HttpCallBack() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String rawJsonResponse, Void response) {
 
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String rawJsonResponse, Object response) {
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, String rawJsonData, Object errorResponse) {
-
-            }
-        });
         return;
     }
 
-    private boolean BluetoothIsBoot() {
-        return true;
-    }
 
     class ViewHolder {
         @BindView(R.id.img_left_item_mine)

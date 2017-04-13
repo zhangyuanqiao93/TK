@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.tkkj.tkeyes.DataBase.MyDBOpenHelper;
-
 public class DBActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Context mContext;
@@ -20,7 +18,7 @@ public class DBActivity extends AppCompatActivity implements View.OnClickListene
     private Button btn_update;
     private Button btn_delete;
     private SQLiteDatabase db;
-    private MyDBOpenHelper myDBHelper;
+    ///private MyDBOpenHelper myDBHelper;
     private StringBuilder sb;
     private int i = 1;
     @Override
@@ -29,7 +27,7 @@ public class DBActivity extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_db);
         setTitle("SQLite操作");
         mContext = DBActivity.this;
-        myDBHelper = new MyDBOpenHelper(mContext, "my.db", null, 1);
+       // myDBHelper = new MyDBOpenHelper(mContext, "my.db", null, 1);
         bindViews();
     }
 
@@ -48,7 +46,7 @@ public class DBActivity extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        db = myDBHelper.getWritableDatabase();
+        ///db = myDBHelper.getWritableDatabase();
         switch (view.getId()) {
             case R.id.btn_insert:
                 ContentValues values1 = new ContentValues();

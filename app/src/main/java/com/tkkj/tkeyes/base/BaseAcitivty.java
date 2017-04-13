@@ -96,14 +96,12 @@ public class BaseAcitivty extends Activity {
     @Override
     public void finish() {
         this.overridePendingTransition(R.anim.activity_from_in, R.anim.activity_from_out);
-//        DialogUtil.getInstance().hideWait();
         View view = getWindow().peekDecorView();
         if (view != null) {
             InputMethodManager inputmanger = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
-//        DialogUtil.getInstance().forceClose();
         //AppManager.getInstance().finishActivity(this);
         super.finish();
     }

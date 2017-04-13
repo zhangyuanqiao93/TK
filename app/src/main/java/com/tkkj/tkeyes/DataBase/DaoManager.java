@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 
+import com.tkkj.tkeyes.model.User;
+
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
@@ -86,7 +88,7 @@ public class DaoManager {
         DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
         DaoSession daoSession = daoMaster.newSession();
         UserDao userDao = daoSession.getUserDao();
-        userDao.insert(user);
+        long i = userDao.insert(user);
     }
     /**
      * 插入用户集合

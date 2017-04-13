@@ -2,22 +2,10 @@ package com.tkkj.tkeyes.bluetoothutil;
 
 
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattDescriptor;
-import android.bluetooth.BluetoothGattServer;
+import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.inuker.bluetooth.library.Code;
-import com.inuker.bluetooth.library.connect.response.BleNotifyResponse;
-import com.inuker.bluetooth.library.connect.response.BleReadResponse;
-import com.inuker.bluetooth.library.connect.response.BleWriteResponse;
-import com.inuker.bluetooth.library.receiver.listener.BluetoothReceiverListener;
-import com.inuker.bluetooth.library.utils.BluetoothLog;
-import com.inuker.bluetooth.library.utils.ByteUtils;
-import com.inuker.bluetooth.library.utils.UUIDUtils;
-
-import java.util.UUID;
+import com.tkkj.tkeyes.bluetooth.BluetoothTools;
 
 /**
  * Created by liwentian on 2017/3/27.
@@ -29,63 +17,93 @@ public class SecureConnector {
     private static final int serviceUuid = 0xFFE5 ;//0xFE95
     private static final int charaUuid = 0xFFE9;//0x10,0xFFE
     private static final int value = 0x90CA85DE;//0x90CA85DE,0xDE85CA90
+    private static Context context;
+    private static BluetoothTools tool;
 
     public static void processStep1(BluetoothDevice device) {
         mDevice = device;
 
-        ClientManager.getClient().write(device.getAddress(), UUIDUtils.makeUUID(serviceUuid), UUIDUtils.makeUUID(charaUuid),
-                ByteUtils.fromInt(value), new BleWriteResponse() {
-                    @Override
-                    public void onResponse(int code) {
+//        final BLEDevice bleDevice = new BLEDevice(context,mDevice) {
+//            @Override
+//            public void readValue(BluetoothGattCharacteristic characteristic) {
+//                super.readValue(characteristic);
+//                if (characteristic == null) {
+//                    Log.w("tag", "55555555555 readValue characteristic is null");
+//                } else {
+//
+//                    bleService.readValue(this.device, characteristic);
+//
+//                }
+//            }
 
-                        if (code == Code.REQUEST_SUCCESS) {
-                            processStep2();
-                        }
-                    }
-                });
+//            @Override
+//            protected void discoverCharacteristicsFromService() {
+//                for (BluetoothGattService bluetoothGattService : bleService
+//                        .getSupportedGattServices(device)) {
+//                    String serviceUUID = Long.toHexString(
+//                            bluetoothGattService.getUuid().getMostSignificantBits())
+//                            .substring(0, 4);
+//                    for (BluetoothGattCharacteristic bluetoothGattCharacteristic : bluetoothGattService
+//                            .getCharacteristics()) {
+//                        String characterUUID = Long.toHexString(
+//                                bluetoothGattCharacteristic.getUuid()
+//                                        .getMostSignificantBits()).substring(0, 4);
+//                        Log.d("_rfstar", "characteristic  : "
+//                                + bluetoothGattCharacteristic.getUuid().toString());
+//                    }
+//                }
+//            }
+//        };
+
+//        ClientManager.getClient().write(device.getAddress(), UUIDUtils.makeUUID(serviceUuid), UUIDUtils.makeUUID(charaUuid),
+//                ByteUtils.fromInt(value), new BleWriteResponse() {
+//                    @Override
+//                    public void onResponse(int code) {
+//
+//                        if (code == Code.REQUEST_SUCCESS) {
+//                            processStep2();
+//                        }
+//                    }
+//                });
     }
 
     public static void processStep2() {
 
+
+
          //发送数据
-        String str =  "helloXX";
+        final String str =  "hello";
+        final byte[] bytes = str.getBytes();
 
-        ClientManager.getClient().write(mDevice.getAddress(), UUIDUtils.makeUUID(serviceUuid),
-                UUIDUtils.makeUUID(charaUuid),str.getBytes(), new BleWriteResponse(){
+//        ClientManager.getClient().write(mDevice.getAddress(), UUIDUtils.makeUUID(serviceUuid),
+//                UUIDUtils.makeUUID(charaUuid),bytes, new BleWriteResponse(){
 
-                    @Override
-                    public void onResponse(int code) {
-                        Log.e("tag", "write回调code：" + code);
-                    }
-                });
+//                    @Override
+//                    public void onResponse(int code) {
+//
+//                        //收到写入response后开始写入
+//                        Log.e("tag", "write回调code：" + code);
 
-        //接收数据
-        ClientManager.getClient().read(mDevice.getAddress(), UUIDUtils.makeUUID(serviceUuid),
-                UUIDUtils.makeUUID(charaUuid), new BleReadResponse(){
+                        //  写入数据测试
+//                        Log.e("tag", "开始写数据: " + "write" );
+//                        tool.sendMessage(context,mDevice,str);
+//
+//                    }
+//                });
 
-
-
-
-                    @Override
-                    public void onResponse(int code, byte[] data) {
-                        Log.e("tag", "read接收code：" + code);
-                        if (data != null) {
-                            Log.e("tag", "接收数据成功：" + "data" + new String(data));
-                        }
-                    }
-                });
-
-        ClientManager.getClient().notify(mDevice.getAddress(), UUIDUtils.makeUUID(serviceUuid),
-                UUIDUtils.makeUUID(charaUuid), new BleNotifyResponse() {
-                    @Override
-                    public void onNotify(UUID service, UUID character, byte[] value) {
-                        Log.e("tag","onNotify:"+ "\n"+"service:"+service+ "\n"+"character"+character+"\n"+"value"+value);
-                    }
-
-                    @Override
-                    public void onResponse(int code) {
-                        Log.e("tag","onResponse:"+code);
-                    }
-                });
+        //接收数据,读写走的是同一个UUID通道还是不同通道
+//        ClientManager.getClient().read(mDevice.getAddress(), UUIDUtils.makeUUID(serviceUuid),
+//                UUIDUtils.makeUUID(charaUuid), new BleReadResponse(){
+//
+//                    @Override
+//                    public void onResponse(int code, byte[] data) {
+//                        Log.e("tag", "read接收code：" + code);
+//                        //data ==null
+//                        if ( data != null) {
+//                            Log.e("tag", "接收数据成功：" + "data" + new String(data));
+//                             tool.receiveMessage(context,mDevice,true);
+//                        }
+//                    }
+//                });
     }
 }

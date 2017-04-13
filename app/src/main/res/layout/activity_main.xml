@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.tkkj.tkeyes.MainActivity">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"></RelativeLayout>
+    <include layout="@layout/layout_title" />
 
     <View
         android:id="@+id/divider_line_mine"
@@ -16,7 +15,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:background="@color/gray_btn_bg_pressed_color"
-        android:layout_height="1dp" />
+        android:layout_height="1dp"
+        android:visibility="gone"/>
     <ListView
         android:id="@+id/list_set"
         android:layout_width="match_parent"

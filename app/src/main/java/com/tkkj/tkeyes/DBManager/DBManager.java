@@ -3,7 +3,7 @@ package com.tkkj.tkeyes.DBManager;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.tkkj.tkeyes.DataBase.DaoMaster;
-import com.tkkj.tkeyes.DataBase.MyApplication;
+import com.tkkj.tkeyes.base.BasicApplication;
 
 /**
  * Created by TKKJ on 2017/4/5.
@@ -19,7 +19,7 @@ public class DBManager {
     private static final String DB_NAME = "user.db";
 
     private DBManager() {
-        devOpenHelper = new DaoMaster.DevOpenHelper(MyApplication.getInstance(), DB_NAME, null);
+        devOpenHelper = new DaoMaster.DevOpenHelper(BasicApplication.getInstance(), DB_NAME, null);
     }
 
     public static DBManager getInstance() {
@@ -31,7 +31,7 @@ public class DBManager {
 
     public SQLiteDatabase getWritableDatabase() {
         if (devOpenHelper == null) {
-            devOpenHelper = new DaoMaster.DevOpenHelper(MyApplication.getInstance(), DB_NAME, null);
+            devOpenHelper = new DaoMaster.DevOpenHelper(BasicApplication.getInstance(), DB_NAME, null);
         }
         SQLiteDatabase db = devOpenHelper.getWritableDatabase();
         return db;

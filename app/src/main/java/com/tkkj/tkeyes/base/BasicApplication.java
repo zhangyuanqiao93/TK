@@ -7,19 +7,25 @@ package com.tkkj.tkeyes.base;
 import android.app.Application;
 import android.content.Context;
 
-import com.tkkj.tkeyes.DataBase.GreenDaoManager;
+import com.tkkj.tkeyes.CacheManger.GreenDaoManager;
+import com.tkkj.tkeyes.Service.ApplicationManager;
+import com.tkkj.tkeyes.bluetooth.CubicBLEDevice;
 
 
 public class BasicApplication extends Application {
 
-    private AppManager _SpActivityManager = null;
+    public ApplicationManager appmanager;
+
+
+   private AppManager _SpActivityManager = null;
     private static Context mContext;
 
-    @Override
-    public void onCreate() {
+   @Override
+   public void onCreate() {
         super.onCreate();
-        initData();
-    }
+       this.appmanager = new ApplicationManager(getApplicationContext());
+       initData();
+   }
     static BasicApplication applicationcontext;
     public BasicApplication(){
         applicationcontext =this;
@@ -34,25 +40,25 @@ public class BasicApplication extends Application {
     private void initData() {
         _SpActivityManager = AppManager.getInstance();
         mContext = getApplicationContext();
-//        GreenDaoManager.getInstance();
+        GreenDaoManager.getInstance();
     }
 
 
 
 
-    public AppManager getActivityManager() {
-        return this._SpActivityManager;
-    }
+//    public AppManager getActivityManager() {
+//        return this._SpActivityManager;
+//    }
 
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-    }
-
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-    }
+//    @Override
+//    public void onLowMemory() {
+//        super.onLowMemory();
+//    }
+//
+//    @Override
+//    public void onTerminate() {
+//        super.onTerminate();
+//    }
 
     public static Context getContext() {
         return mContext;

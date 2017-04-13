@@ -3,7 +3,7 @@ package com.tkkj.tkeyes.UserInfo;
 import com.tkkj.tkeyes.DBManager.DBManager;
 import com.tkkj.tkeyes.DataBase.DaoMaster;
 import com.tkkj.tkeyes.DataBase.DaoSession;
-import com.tkkj.tkeyes.DataBase.User;
+import com.tkkj.tkeyes.model.User;
 import com.tkkj.tkeyes.DataBase.UserDao;
 
 import org.greenrobot.greendao.query.DeleteQuery;

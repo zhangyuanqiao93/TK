@@ -5,99 +5,90 @@ package com.tkkj.tkeyes;
  * Created by TTKJ on 2017/03/24
  * Module： Register
  */
+
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.KeyEvent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.tkkj.tkeyes.utils.DialogUtil;
+import com.tkkj.tkeyes.utils.OnDialogUtilListener;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.smssdk.SMSSDK;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+import static com.tkkj.tkeyes.R.id.check_btn;
 
-    private EditText name, password, confirm_password,
-            age, degree, astigmatism, phone, check_ID, ID;
-    private Button check, confirm, cancel;
+public class RegisterActivity extends AppCompatActivity  {
+
+    @BindView(R.id.name_edit)
+    EditText nameEdit;
+    @BindView(R.id.password_edit)
+    EditText passwordEdit;
+    @BindView(R.id.confirm_edit)
+    EditText confirmEdit;
+    @BindView(R.id.age_edit)
+    EditText ageEdit;
+    @BindView(R.id.degree_edit)
+    EditText degreeEdit;
+    @BindView(R.id.astigmatism_edit)
+    EditText astigmatismEdit;
+    @BindView(R.id.ID_edit)
+    EditText IDEdit;
+    @BindView(R.id.phone_edit)
+    EditText phoneEdit;
+    @BindView(check_btn)
+    Button checkBtn;
+    @BindView(R.id.checkID_edit)
+    EditText checkIDEdit;
+    @BindView(R.id.cancel_btn)
+    Button cancelBtn;
+    @BindView(R.id.register_btn)
+    Button registerBtn;
+    @BindView(R.id.activity_register)
+    LinearLayout activityRegister;
+
+
+    private String name_edit, password_edit, confirm_password_edit,
+            age_edit, degree_edit, astigmatism_edit, phone_edit, cheacked_edit, ID_edit;
+    private Context  context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏标题栏
         setContentView(R.layout.activity_register);
+        ButterKnife.bind(this);
         setTitle("请注册个人信息");
-        InitView();
-    }
 
-    /**
-     * Author : ZYQ
-     * 初始化组件,注册组件，findViewById();setOnClickListener();实现监听事件
-     *
-     */
+        context= RegisterActivity.this;
 
-    private void InitView() {
-//        findViewById
-        name = (EditText) findViewById(R.id.name_edit);
-        password = (EditText) findViewById(R.id.password_edit);
-        confirm_password = (EditText) findViewById(R.id.confirm_edit);
-        age = (EditText) findViewById(R.id.age_edit);
-        degree = (EditText) findViewById(R.id.degree_edit);
-        astigmatism = (EditText) findViewById(R.id.astigmatism_edit);
-        phone = (EditText) findViewById(R.id.phone_edit);
-        check_ID = (EditText) findViewById(R.id.checkID_edit);
-        ID = (EditText) findViewById(R.id.ID_edit);
-        check = (Button) findViewById(R.id.check_btn);
-        confirm = (Button) findViewById(R.id.register_btn);
-        cancel = (Button) findViewById(R.id.cancel_btn);
+        //1.初始化sdk     APPKEY：是在mob.com官网上注册的appkey
+        SMSSDK.initSDK(this,"1ce8907f3df30","c4b87e4ccd169f4d4b496fbabc27d464");//也是所注册的APPSECRETE
+        //2.到清单文件中配置信息 （添加网络相关权限以及一个activity信息）
+        checkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //注册手机号
+//                RegisterPage registerPage=new RegisterPage();
 
-//      setOnClickListener
-        name.setOnClickListener(this);
-        password.setOnClickListener(this);
-        confirm_password.setOnClickListener(this);
-        age.setOnClickListener(this);
-        degree.setOnClickListener(this);
-        astigmatism.setOnClickListener(this);
-        phone.setOnClickListener(this);
-        check_ID.setOnClickListener(this);
-        ID.setOnClickListener(this);
-        check.setOnClickListener(this);
-        confirm.setOnClickListener(this);
-        cancel.setOnClickListener(this);
+                //注册回调事件
+
+            }
+        });
 
     }
 
-    /**
-     * Created by TKKJ on 2017/03/25
-     * 退出系统提示
-    */
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK) {
-////            创建对话框
-//          /*  AlertDialog isExit = new AlertDialog.Builder(this).create();
-////            设置标题
-//            isExit.setTitle("系统提示");
-////             设置对话框消息
-//            isExit.setMessage("确定要退出吗");
-////           添加选择按钮并注册监听
-////Button does not exist
-//            isExit.setButton(R.id.cancel, "确定", listener);
-//            isExit.setButton(R.id.confirm_button,"取消",listener);
-////          显示对话框
-//            isExit.show();*/
-//        }
-//        return false;
-//    }
 
     /**
      * Created by TKKJ on 2017/03/25
@@ -117,113 +108,135 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     };
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.register_btn:
-//                点击注册的逻辑
-                register_Confirm();
-                break;
-            case R.id.cancel_btn:
-                cancel_register();
-                break;
-            case R.id.check_btn:
-                //            手机验证码
-                checkMobile();
-                break;
-            default:
-                break;
-        }
-    }
-
 
     private void checkMobile() {
-        String flag = "1234";
-        String checkNum = check_ID.getText().toString().trim();
-        if (checkNum!= flag){
-            check_ID.setError("验证码不正确，请重新输入");
-            check_ID.requestFocus();
+        String flag = "";
+        String checkNum = checkIDEdit.getText().toString().trim();
+        if (checkNum != flag) {
+            checkIDEdit.setError("验证码不正确，请重新输入");
+            checkIDEdit.requestFocus();
             return;
         }
     }
 
     private void cancel_register() {
-        Toast.makeText(RegisterActivity.this,"未保存注册信息，确定退出？",Toast.LENGTH_SHORT).show();
+        DialogUtil.getInstance().warning(context,"取消注册","确定取消注册吗",new OnDialogUtilListener(){
+            @Override
+            public void onCancel() {
+                super.onCancel();
+            }
+
+            @Override
+            public void onConfirm() {
+                super.onConfirm();
+                finish();
+            }
+        });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    /**
+     * 获取文本框信息
+     */
+    public void getEditeData() {
+
+        name_edit = nameEdit.getText().toString().trim();
+        password_edit = passwordEdit.getText().toString().trim();
+         confirm_password_edit = confirmEdit.getText().toString().trim();
+         age_edit = ageEdit.getText().toString().trim();
+         degree_edit = degreeEdit.getText().toString().trim();
+        astigmatism_edit = astigmatismEdit.getText().toString().trim();
+         phone_edit = phoneEdit.getText().toString().trim();
+        cheacked_edit = checkIDEdit.getText().toString().trim();
+         ID_edit = IDEdit.getText().toString().trim();
     }
+
 
     /**
      * Created by TKKJ on 2017/03/24
      * 注册信息检验
-     * */
-    private void register_Confirm() {
-        String name_edit = name.getText().toString().trim();
-        String password_edit = password.getText().toString().trim();
-        String confirm_password_edit = confirm_password.getText().toString().trim();
-        String age_edit = age.getText().toString().trim();
-        String degree_edit = degree.getText().toString().trim();
-        String astigmatism_edit = astigmatism.getText().toString().trim();
-        String phone_edit = phone.getText().toString().trim();
-        String cheeked_edit = check_ID.getText().toString().trim();
-        String ID_edit = ID.getText().toString().trim();
-
+     */
+    private boolean validate() {
+boolean flag = true;
 
         /**
          * 注册判断逻辑
          * */
-            if (name_edit.equals("")) {
-                name.setError("用户名不能为空！");
-                name.requestFocus();
-                return;
-            } else if (password_edit.equals("") || confirm_password_edit.equals("")) {
-                password.setError("密码不能为空!");
-                password.requestFocus();
-                if (!password_edit.equals("") && confirm_password_edit.equals("")) {
-                    confirm_password.setError("确认密码不能为空!");
-                    confirm_password.requestFocus();
-                    return;
-                } else if (password_edit.equals("") || !confirm_password_edit.equals("")) {
-                    password.setError("密码不能为空!");
-                    password.requestFocus();
-                    return;
-                } else if (!password.equals(confirm_password)) {
-//                  密码校验成功与否
-                    Toast.makeText(RegisterActivity.this, "用户名或密码不正确，请重新输入", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                return;
-            } else if (age_edit.equals("")) {
-                age.setError("请填写真实年龄！");
-                age.requestFocus();
-                return;
-            } else if (degree_edit.equals("")) {
-                degree.setError("请填写近视度数！");
-                degree.requestFocus();
-                return;
-            } else if (astigmatism_edit.equals("")) {
-                astigmatism.setError("请填写散光度数！");
-                astigmatism.requestFocus();
-                return;
-            } else if (ID_edit.equals("")) {
-                ID.setError("请填写ID！");
-                ID.requestFocus();
-                return;
-            } else if (phone_edit.equals("")) {
-                phone.setError("请填写手机号！");
-                phone.requestFocus();
-                return;
-            } else if (check_ID.equals("")) {
-                check_ID.setError("请填写验证码！");
-                check_ID.requestFocus();
-                return;
-            } else if (!check_ID.equals("")) {
-                return;
-            }
+        if (name_edit.equals("")) {
+            nameEdit.setError("用户名不能为空！");
+            nameEdit.requestFocus();
+           flag=false;
+        } else if (TextUtils.isEmpty(password_edit)) {
+            passwordEdit.setError("密码不能为空!");
+            passwordEdit.requestFocus();
+            flag=false;
+        }else if(!TextUtils.isEmpty(password_edit)&&(
+                password_edit.length()<6||password_edit.length()>16
+                )){
+            passwordEdit.setError("密码长度应为6-16位!");
+            passwordEdit.requestFocus();
+            flag=false;
+
+        }else if(TextUtils.isEmpty(confirm_password_edit)){
+            confirmEdit.setError("确认密码不能为空!");
+            confirmEdit.requestFocus();
+            flag=false;
+        } else if(!TextUtils.isEmpty(password_edit)&&!TextUtils.isEmpty(confirm_password_edit)&&!confirm_password_edit.equals(password_edit)){
+                confirmEdit.setError("两次密码不一致!");
+                confirmEdit.requestFocus();
+                flag=false;
+        } else if (age_edit.equals("")) {
+            ageEdit.setError("请填写真实年龄！");
+            ageEdit.requestFocus();
+            flag=false;
+        } else if (degree_edit.equals("")) {
+            degreeEdit.setError("请填写近视度数！");
+            degreeEdit.requestFocus();
+        flag=false;
+        } else if (astigmatism_edit.equals("")) {
+            astigmatismEdit.setError("请填写散光度数！");
+            astigmatismEdit.requestFocus();
+        flag=false;
+        } else if (ID_edit.equals("")) {
+            IDEdit.setError("请填写ID！");
+            IDEdit.requestFocus();
+        flag=false;
+        } else if (phone_edit.equals("")) {
+            phoneEdit.setError("请填写手机号！");
+            phoneEdit.requestFocus();
+        flag=false;
+        } else if (cheacked_edit.equals("")) {
+            checkIDEdit.setError("请填写验证码！");
+            checkIDEdit.requestFocus();
+            flag = false;
+        }
+        return flag;
     }
+
+
+
+    @OnClick({check_btn, R.id.cancel_btn, R.id.register_btn})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case check_btn:
+
+                getEditeData();
+                if (validate()){
+                   // uploadData();
+                }
+                break;
+            case R.id.cancel_btn:
+                cancel_register();
+                break;
+            case R.id.register_btn:
+                checkMobile();
+                break;
+
+
+        }
+    }
+
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -233,4 +246,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onStop() {
         super.onStop();
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 }
