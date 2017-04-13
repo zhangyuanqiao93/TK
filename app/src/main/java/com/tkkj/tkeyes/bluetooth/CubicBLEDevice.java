@@ -67,14 +67,14 @@ public class CubicBLEDevice extends BLEDevice implements Serializable {
 								.getMostSignificantBits()).substring(0, 4);
 				if (gattServiceUUID.equals(serviceUUID)
 						&& characteristicUUID.equals(characterUUID)) {
-					// bluetoothGattCharacteristic.setValue(value);
-					// this.writeValue(bluetoothGattCharacteristic);
+//					 bluetoothGattCharacteristic.setValue(value);
+//					 this.writeValue(bluetoothGattCharacteristic);
 					int length = value.length;
 					int lengthChar = 0;
 					int position = 0;
 					while (length > 0) {
-						if (length > 20) {
-							lengthChar = 20;
+						if (length > 150) {
+							lengthChar = 150;
 						} else if (length > 0) {
 							lengthChar = length;
 						} else {
@@ -84,7 +84,7 @@ public class CubicBLEDevice extends BLEDevice implements Serializable {
 						for (int count = 0; count < lengthChar; count++) {
 							sendValue[count] = value[position + count];
 						}
-//						Log.d(App.TAG, "send:  " + Tools.byte2Hex(sendValue));
+						Log.d("tag", "send:  " + Tools.byte2Hex(sendValue));
 //						 = value.substring(position, lengthChar+ position);
 						bluetoothGattCharacteristic.setValue(sendValue);
 						bluetoothGattCharacteristic

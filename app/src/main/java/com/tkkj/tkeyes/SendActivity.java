@@ -134,7 +134,7 @@ public class SendActivity extends AppCompatActivity implements BLEDevice.RFStarB
             }
 
             StrToCharArry obj = new StrToCharArry();
-            //byte[] b   = obj.StrToCharArry(jsonArray.getJSONObject(0).getString("data"));
+//            byte[] b   = obj.StrToCharArry(jsonArray.getJSONObject(0).getString("data"));
             ArrayList<Integer> b=obj.StrToCharArry(jsonArray.getJSONObject(0).getString("data"));
             int len = b.size();
             byte[] b_1 = new byte[len];
@@ -152,7 +152,7 @@ public class SendActivity extends AppCompatActivity implements BLEDevice.RFStarB
 //            app.appmanager.cubicBLEDevice.writeValue("ffe5", "ffe9", str);
            app.appmanager.cubicBLEDevice.writeValue("ffe5", "ffe9", b_1);
 //            app.appmanager.cubicBLEDevice.writeValue("ffe5", "ffe9", jsonArray.getJSONObject(0).getString("data")+",XX");
-            Thread.sleep(30);
+            Thread.sleep(100);
            // Log.e("tag", Arrays.toString("XX".getBytes()));
 //            app.appmanager.cubicBLEDevice.writeValue("ffe5", "ffe9", "XX".getBytes());
             app.appmanager.cubicBLEDevice.writeValue("ffe5", "ffe9", "XX");
@@ -184,6 +184,10 @@ public class SendActivity extends AppCompatActivity implements BLEDevice.RFStarB
         }
     }
 
+
+    /**
+     * 注册广播
+     * */
     private void registerRec() {
         if (freshRec == null) {
             IntentFilter filter = new IntentFilter();

@@ -32,7 +32,7 @@ public class GlobalObject implements Serializable {
     }
 
     //广播事件标记
-    public static final String GLOBAL_BROADCAST = "WWFuSml1U2VuZ0FwcDIwMTYhfihfji";
+    public static final String GLOBAL_BROADCAST = "广播时间标记";
 
     //蓝牙功能标记
     public static final int STRAT_DEVICE = 24;//启动设备

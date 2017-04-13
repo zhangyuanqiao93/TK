@@ -72,12 +72,16 @@ public class BluetoothLeservice {
 //            }
         }
 
+
+    /**
+     * 写入回调
+     * */
         @Override
         public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
             super.onCharacteristicWrite(gatt, characteristic, status);
 
-//            TLog.d(TAG,"status = " + status);
-//            TLog.d(TAG, "onCharacteristicWrite------>" + Utils.bytesToHexString(characteristic.getValue()));
+            Log.d(TAG,"status = " + status);
+//            Log.d(TAG, "onCharacteristicWrite------>" + Utils.bytesToHexString(characteristic.getValue()));
         }
 
         @Override
