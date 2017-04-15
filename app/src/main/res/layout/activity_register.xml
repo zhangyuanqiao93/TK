@@ -15,6 +15,7 @@
         android:scrollbars="none">
 
         <LinearLayout
+            android:padding="@dimen/activity_vertical_margin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -87,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="ID"
+                android:hint="AccessID"
                 android:inputType="number"
                 android:maxLength="11"
                 android:textColorHint="#0f0" />

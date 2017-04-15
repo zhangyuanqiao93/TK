@@ -30,6 +30,7 @@ import butterknife.OnClick;
 public class MainActivity extends BasicActivity {
 
     // 注意：控件的修饰类型不能是：private 或 static
+    //
     // 否则会报错误： @BindView fields must not be private or static.
     @BindView(R.id.imgBtn_back)
     ImageButton imgBtnBack;
@@ -107,6 +108,43 @@ public class MainActivity extends BasicActivity {
         finish();
     }
 }
+
+
+/**
+ *  Android6.0需要动态申请权限
+ * */
+/*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == IntentCons.REQUEST_LOCATION_PERMISSION) {
+            if (NetUtils.isLocationOpen(getApplicationContext())) {
+                Log.i("fang", " request location permission success");
+                //Android6.0需要动态申请权限
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //请求权限
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                                    Manifest.permission.ACCESS_FINE_LOCATION},
+                            IntentCons.REQUEST_LOCATION_PERMISSION);
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                        //判断是否需要解释
+                        DialogUtils.shortT(getApplicationContext(), "需要蓝牙权限");
+                    }
+                }
+
+            } else {
+                //若未开启位置信息功能，则退出该应用
+                finish();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }*/
+
+
 
 //    private void connectDevice() {
 //        DialogUtil.getInstance().waitDialog(context, "正在连接设备");

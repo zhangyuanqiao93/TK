@@ -19,6 +19,8 @@ public class GreenDaoManager {
         mDaoSession = mDaoMaster.newSession();
     }
 
+
+    //创建单例模式
     public static GreenDaoManager getInstance() {
         if (mInstance == null) {
             mInstance = new GreenDaoManager();

@@ -6,9 +6,14 @@ package com.tkkj.tkeyes.utils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.MediaCodec;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -184,4 +189,28 @@ public class DialogUtil {
                 .show();
     }
 
+    /**
+     * 判断电话号码是否符合格式.
+     *
+     * 手机号码11位数，匹配格式：前三位固定格式+后8位任意数
+     * 此方法中前三位格式有：
+     * 13+任意数
+     * 15+除4的任意数
+     * 18+除1和4的任意数
+     * 17+除9的任意数
+     * 147
+     *
+     * @param phone the input text
+     * @return true, if is phone
+     */
+    public static boolean isPhone(String phone) {
+        String str = phone;
+       if ( str.length()==11) {
+           Pattern p = Pattern.compile("^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\\\d{8}$");
+           Matcher m = p.matcher(phone);
+           return m.matches();
+       }
+        Log.e("tag", "isPhone: " + false);
+        return false;
+    }
 }

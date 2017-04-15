@@ -6,6 +6,8 @@ import java.util.List;
  * Created by TKKJ on 2017/4/13.
  */
 
+
+
 public class UserInfoEntity {
 
     private String requeststatus;

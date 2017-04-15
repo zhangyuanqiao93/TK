@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import com.tkkj.tkeyes.DataBase.DaoMaster;
 import com.tkkj.tkeyes.DataBase.DaoSession;
+import com.tkkj.tkeyes.DataBase.RegisterEntityDao;
 import com.tkkj.tkeyes.DataBase.UserDao;
+import com.tkkj.tkeyes.Entity.RegisterEntity;
 import com.tkkj.tkeyes.base.BasicApplication;
 import com.tkkj.tkeyes.model.User;
 import com.tkkj.tkeyes.utils.DataEncryptUtil;
@@ -35,8 +37,9 @@ public class CacheManager {
     public Context getApplicationContext(){
         return BasicApplication.getContext();
     }
-    //数据保存
+    //轨迹数据保存
     public static void setData(String url, String response){
+        //如果有就更新，否则保存
         if (hasCache(url)) {
             updateData(url, response);
         } else {
@@ -50,30 +53,26 @@ public class CacheManager {
      * @param response
      */
     public static void insert(final String url, final String  response) {
-       UserDao modelDao = GreenDaoManager.getInstance().getSession().getUserDao();
+        UserDao modelDao = GreenDaoManager.getInstance().getSession().getUserDao();
         User model = new User();
         model.setAge(url);
         model.setName(response);
 
-       long i=modelDao.insert(model);
-
+       long i=modelDao.insert(model);//主键必须为long类型，且自动自增
 
         Log.e("tag","缓存存储序号："+i);
-
 
     }
 
     private static void updateData(String url, String response) {
-        User
-                model = (User) getQuery(url).unique();
+
+        User model = (User) getQuery(url).unique();
         if (model != null) {
             model.setName(response);
             GreenDaoManager.getInstance().getSession().getUserDao().update(model);
         } else {
             Log.e("tag", "更新数据失败");
         }
-
-
     }
 
     /**
@@ -83,8 +82,8 @@ public class CacheManager {
      * @return
      */
     public static String getData(String url) {
-        User
-                model = (User) getQuery(url).unique();
+
+        User model = (User) getQuery(url).unique();
         if (model != null) {
             return model.getName();
         } else {
@@ -94,8 +93,7 @@ public class CacheManager {
 
     public static boolean hasCache(String url) {
 
-        User
-                model = (User) getQuery(url).unique();
+        User model = (User) getQuery(url).unique();
         if (model != null) {
             return true;
         } else {

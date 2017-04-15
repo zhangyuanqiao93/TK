@@ -20,12 +20,13 @@ import com.tkkj.tkeyes.bluetooth.RFStarBLEService;
 
 import java.io.UnsupportedEncodingException;
 
-public class RecieveActivity extends AppCompatActivity implements BLEDevice.RFStarBLEBroadcastReceiver {
+public class ReceiveActivity extends AppCompatActivity implements BLEDevice.RFStarBLEBroadcastReceiver {
+
 
 
     private static final int REQUEST_LOCATION_PERMISSION = 1;
-    private TextView mtv;
-    private Button mbtn;
+    private TextView mtv;//接收数据显示textview
+    private Button mbtn;//接收数据按钮
     BasicApplication app;
     Context context;
     boolean flag= true;//默认为开始
@@ -37,7 +38,6 @@ public class RecieveActivity extends AppCompatActivity implements BLEDevice.RFSt
         app = (BasicApplication) getApplication();
         Log.e("onCreate",app.appmanager.bluetoothDevice.getName());
         Log.e("onCreate",app.appmanager.cubicBLEDevice!=null?"notnull":"null");
-
         initView();
     }
 
@@ -63,7 +63,7 @@ public class RecieveActivity extends AppCompatActivity implements BLEDevice.RFSt
      * 权限申请
      */
     private void requestPermission() {
-        context = RecieveActivity.this;
+        context = ReceiveActivity.this;
         //权限申请
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { //Android M 处理Runtime Permission
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -81,15 +81,12 @@ public class RecieveActivity extends AppCompatActivity implements BLEDevice.RFSt
                 }
             }
 
-
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                     != PackageManager.PERMISSION_GRANTED) {
                 //请求权限
                 ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_PHONE_STATE,
-                        },
-                        this.REQUEST_LOCATION_PERMISSION);
-
+                        new String[]{Manifest.permission.READ_PHONE_STATE,}
+                        , this.REQUEST_LOCATION_PERMISSION);
 
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                         Manifest.permission.READ_PHONE_STATE)) {
@@ -98,6 +95,10 @@ public class RecieveActivity extends AppCompatActivity implements BLEDevice.RFSt
             }
         }
     }
+
+    /**
+     * 返回数据
+     */
     StringBuilder str = new StringBuilder();
     @Override
     public void onReceive(Context context, Intent intent, String macData, String uuid) {
@@ -108,8 +109,9 @@ public class RecieveActivity extends AppCompatActivity implements BLEDevice.RFSt
                 Log.e("data",data.toString());
                 try {
                     String string = new String(data, "GB2312");
+                    //该 append方法总是在构建器的末尾添加这些字符;
+                    // 该insert方法将字符添加到指定点。
                     str.append(string);
-
                     mtv.setText(str);
                 } catch (UnsupportedEncodingException e) {
                     // TODO Auto-generated catch block
@@ -127,6 +129,7 @@ public class RecieveActivity extends AppCompatActivity implements BLEDevice.RFSt
         // TODO Auto-generated method stub
         super.onResume();
         if (app.appmanager.cubicBLEDevice != null)
+            //setBLEBroadcastDelegate委托模式
             app.appmanager.cubicBLEDevice.setBLEBroadcastDelegate(this);
     }
 
@@ -135,7 +138,6 @@ public class RecieveActivity extends AppCompatActivity implements BLEDevice.RFSt
         // TODO Auto-generated method stub
         super.onDestroy();
         if (app.appmanager.cubicBLEDevice != null)
-            app.appmanager.cubicBLEDevice.setNotification("ffe0", "ffe4",
-                    false);
+            app.appmanager.cubicBLEDevice.setNotification("ffe0", "ffe4", false);
     }
 }

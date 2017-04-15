@@ -130,12 +130,16 @@ public class SendActivity extends AppCompatActivity implements BLEDevice.RFStarB
             JSONArray jsonArray = new JSONArray(value);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject json = jsonArray.getJSONObject(i);
+                //将后台数据，解析为json格式，添加到listData中
                 listData.add(json.getString("data"));
             }
 
             StrToCharArry obj = new StrToCharArry();
-//            byte[] b   = obj.StrToCharArry(jsonArray.getJSONObject(0).getString("data"));
             ArrayList<Integer> b=obj.StrToCharArry(jsonArray.getJSONObject(0).getString("data"));
+
+            /**
+             * 字节处理，int to byte[]
+             * */
             int len = b.size();
             byte[] b_1 = new byte[len];
             for(int i = 0; i<len; i++){
@@ -143,11 +147,7 @@ public class SendActivity extends AppCompatActivity implements BLEDevice.RFStarB
                 b_1[i] = (byte)alEach;
             }
             Log.e("tag", Arrays.toString(b_1));
-//            byte[] str =new byte[10] ;
-//            for(int i = 0;i < 10; i++){
-//                str[i] = (byte)(66+i);
-//            }
-            Log.e("tag", jsonArray.getJSONObject(0).getString("data"));
+//            Log.e("tag", jsonArray.getJSONObject(0).getString("data"));
 //            Log.e("tag", str.toString());
 //            app.appmanager.cubicBLEDevice.writeValue("ffe5", "ffe9", str);
            app.appmanager.cubicBLEDevice.writeValue("ffe5", "ffe9", b_1);
@@ -155,6 +155,7 @@ public class SendActivity extends AppCompatActivity implements BLEDevice.RFStarB
             Thread.sleep(100);
            // Log.e("tag", Arrays.toString("XX".getBytes()));
 //            app.appmanager.cubicBLEDevice.writeValue("ffe5", "ffe9", "XX".getBytes());
+            //延时100毫秒后发送结束符XX
             app.appmanager.cubicBLEDevice.writeValue("ffe5", "ffe9", "XX");
 
         } catch (JSONException e) {
@@ -162,8 +163,6 @@ public class SendActivity extends AppCompatActivity implements BLEDevice.RFStarB
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -199,6 +198,7 @@ public class SendActivity extends AppCompatActivity implements BLEDevice.RFStarB
                     if (intent != null) {
                         Log.e("tag","SendActivity：是否发送成功? :"+intent.getBooleanExtra("isSuccess", false)+"");
                         if (intent.getBooleanExtra("isSuccess", false)) {
+                            //执行操作，监听回调，准备接收数据
 
                         }
                     }

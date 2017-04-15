@@ -40,15 +40,9 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
-        <!--
-     ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        -->
 
-        <activity android:name=".FacilityActivity" />
         <activity android:name=".DBActivity" />
         <activity android:name=".base.BaseAcitivty" />
-        <activity android:name=".CharacterActivity" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -61,7 +55,7 @@
             android:enabled="true" />
 
         <activity android:name=".SendActivity" />
-        <activity android:name=".RecieveActivity"></activity>
+        <activity android:name=".ReceiveActivity"></activity>
     </application>
 
 </manifest>

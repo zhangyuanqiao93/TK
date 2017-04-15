@@ -51,6 +51,12 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         requestPermission();
         app = (BasicApplication) getApplication();
         initView();
+
+        //如果有设备正连接，断开连接
+        if (app.appmanager.cubicBLEDevice != null) {
+            app.appmanager.cubicBLEDevice.disconnectedDevice();
+            app.appmanager.cubicBLEDevice = null;
+        }
     }
 
     /*
@@ -160,7 +166,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             Intent intent = new Intent(SearchActivity.this,SendActivity.class);
             startActivity(intent);
         }else {
-            Intent intent = new Intent(SearchActivity.this,RecieveActivity.class);
+            Intent intent = new Intent(SearchActivity.this,ReceiveActivity.class);
             startActivity(intent);
         }
         finish();
@@ -229,8 +235,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     protected void onDestroy() {
         super.onDestroy();
         if (app.appmanager.cubicBLEDevice != null)
-            app.appmanager.cubicBLEDevice.setNotification("ffe0", "ffe4",
-                    false);
+            app.appmanager.cubicBLEDevice.setNotification("ffe0", "ffe4", false);
     }
 
     @Override

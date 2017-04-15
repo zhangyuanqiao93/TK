@@ -19,11 +19,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.tkkj.tkeyes.CacheManger.CacheManager;
-import com.tkkj.tkeyes.Entity.UserInfoEntity;
-import com.tkkj.tkeyes.GsonUtils.GsonUtils;
 import com.tkkj.tkeyes.NetWorkUtils.NetService;
 import com.tkkj.tkeyes.utils.DataEncryptUtil;
 import com.tkkj.tkeyes.utils.DialogUtil;
@@ -31,7 +28,6 @@ import com.tkkj.tkeyes.utils.DialogUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -156,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         case 0:
                             Log.e("tag", "onSuccess: " + response );
-                            //保存用户登录信息
+                            //登录成功后，保存用户登录信息
                             editor.putString("account", account);
                             editor.putString("password", password);
                             editor.commit();
@@ -174,8 +170,6 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-
-
 
             public  String createJsonString(String key, Object value) {
                     JSONObject jsonObject = new JSONObject();
@@ -202,7 +196,6 @@ public class LoginActivity extends AppCompatActivity {
 
         DataEncryptUtil.saveUserId(userId);
         String info = response.getJSONArray("deviceinfo").toString();
-
         CacheManager.setData(userId,info);
     }
 
